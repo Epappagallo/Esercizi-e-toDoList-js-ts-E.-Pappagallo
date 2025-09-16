@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Dynamic List</title>
+  </head>
+  <body>
+    <div>
+      <h1>BlackList Society</h1>
+      <div id="inputArea">
+        <textarea class="darkScript" id="noteText"></textarea>
+        <button class="darkButton" id="inputButton">+</button>
+      </div>
+      <ul class="darkList"></ul>
+    </div>
+    <div id="controls">
+      <button class="darkButton" id="load-todolist">ToDoList.ts</button>
+      <button class="darkButton" id="load-array">array.ts</button>
+      <button class="darkButton" id="load-map">map.ts</button>
+    </div>
+    <p>Script caricato: <span id="current-script-name">Nessuno</span></p>
+
+    <script id="dynamic-script"></script>
+
+    <script type="module" src="dist/scriptLoader.js"></script>
+  </body>
+</html>
