@@ -1,19 +1,65 @@
 <!DOCTYPE html>
 <html lang="en">
-<meta name="viewport" content="width=device-width,initial-scale=1.0" />
-<meta charset="UTF-8" />
-<title>Dinami List</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+  <meta charset="UTF-8" />
+  <link rel="stylesheet" href="style.css" />
+  <title>Dinami List</title>
 
-<body>
+  <body>
     <div>
-        <h1>BlackList Society</h1>
-        <div>
-            <textarea class="darkScript" id="noteText"></textarea>
-            <button class="darkButton" id="inputButton">+</button>
-        </div>
-        <ul class="darkList"></ul>
+      <h1>BlackList Society</h1>
+      <div id="inputArea">
+        <textarea class="darkScript" id="noteText"></textarea>
+        <button class="darkButton" id="inputButton">+</button>
+      </div>
+      <ul class="darkList"></ul>
     </div>
-    <script src="ToDoList.js"></script>
-</body>
+    <div id="controls">
+      <button class="darkButton" id="load-todolist">ToDoList.js</button>
+      <button class="darkButton" id="load-array">array.js</button>
+      <button class="darkButton" id="load-map">map.js</button>
+    </div>
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const controlsDiv = document.getElementById("controls");
+        const currentScriptSpan = document.getElementById(
+          "current-script-name"
+        );
 
+        const scripts = {
+          "load-todolist": "ToDoList.js",
+          "load-array": "array.js",
+          "load-map": "map.js",
+        };
+
+        controlsDiv.addEventListener("click", (event) => {
+          const buttonId = event.target.id;
+          const scriptName = scripts[buttonId];
+
+          if (scriptName) {
+            loadScript(scriptName);
+            currentScriptSpan.textContent = scriptName;
+          }
+        });
+
+        function loadScript(src) {
+          const existingScript = document.getElementById("dynamic-script");
+          if (existingScript) {
+            existingScript.remove();
+          }
+
+          const newScript = document.createElement("script");
+          newScript.id = "dynamic-script";
+          newScript.src = src;
+
+          document.body.appendChild(newScript);
+          console.log(`Caricato lo script: ${src}`);
+        }
+        loadScript("ToDoList.js");
+        currentScriptSpan.textContent = "ToDoList.js";
+      });
+    </script>
+    <p>Script caricato: <span id="current-script-name">Nessuno</span></p>
+    
+  </body>
 </html>

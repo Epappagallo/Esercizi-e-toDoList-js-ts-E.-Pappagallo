@@ -1,14 +1,20 @@
-// Variabili e Costanti programmazione funzionale
-
-const list = document.getElementsByClassName("darkList")[0];
-const subsList = new Array();
+const darkArray = new Array();
 const darkText = document.getElementById("noteText");
+const darkList = document.getElementsByClassName("list");
 const darkButton = document.getElementById("inputButton");
 let idCounter = 0;
 
 //Funzioni
 
-function addTask() {
+function renderArray() {
+    darkList[0].innerHTML = "";
+    darkArray.forEach((item) => {
+        darkList[0].appendChild(item);
+    });
+    console.log(darkList);
+};
+
+function addTaskToArray() {
     const subEl = document.createElement("li");
     const deleteBtn = document.createElement("button");
     const checkbox = document.createElement("input");
@@ -30,17 +36,19 @@ function addTask() {
     subEl.id = `subEl-${currentId}`;
     subEl.appendChild(deleteBtn);
     subEl.prepend(checkbox);
-    list.appendChild(subEl);
-    subsList.push(subEl);
+    darkArray.push(subEl);
     darkText.value = "";
-    console.log(subsList);
+    renderArray();
+    console.log(darkArray);
 };
 
 function deleteTask(id) {
     const elToDelete = document.getElementById(`subEl-${id}`);
-    if (elToDelete) {
-        list.removeChild(elToDelete);
-        console.log(subsList);
+    const index = darkArray.indexOf(elToDelete);
+    if (index > -1) {
+        darkArray.splice(index, 1);
+        renderArray();
+        console.log(darkArray);
     }
 };
 
@@ -50,15 +58,19 @@ function checkTask(id) {
     if (elToCheck.checked) {
         li.style.textDecoration = "line-through";
         li.style.opacity = "0.5";
-        list.removeChild(li);
-        list.appendChild(li);
+        darkList[0].removeChild(li);
+        darkList[0].appendChild(li);
     } else {
         li.style.textDecoration = "none";
         li.style.opacity = "1";
     }
+    console.log(darkArray);
+    renderArray();
 }
 
-//Eventi
-
-darkButton.addEventListener("click", addTask);
+//Eventi    
+darkButton.addEventListener("click", () => {
+    addTaskToArray();
+    renderArray();
+});
 
